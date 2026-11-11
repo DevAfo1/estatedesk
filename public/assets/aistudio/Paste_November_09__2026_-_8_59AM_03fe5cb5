@@ -1,0 +1,787 @@
+# 10. Updated master development instruction – EstateDesk
+
+## 10.1 Overall development instruction
+
+Develop EstateDesk as a modern, secure, scalable, multi-platform real estate management SaaS and property marketplace for the Nigerian real estate industry, with the capacity to expand into other international markets.
+
+The application must support iOS, Android and web administration. Build it as a complete property operations ecosystem connecting landlords, real estate agents, facility managers, tenants, artisans/vendors and platform administrators.
+
+The system must be modular, scalable, intuitive, mobile-responsive and suitable for managing anything from a single rental apartment to hundreds or thousands of properties and units.
+
+The following requirements incorporate the latest product and commercial decisions and override conflicting earlier instructions.
+
+## 10.2 Subscription plans and pricing
+
+Implement four public subscription tiers:
+
+| Plan | Monthly price | Proposed capacity |
+|---|---:|---|
+| Free | ₦0 | 1 property, up to 3 units |
+| Basic | ₦2,000 | Up to 10 units |
+| Professional | ₦7,500 | Up to 50 units |
+| Portfolio | ₦15,000 | Up to 100 units |
+
+These are proposed launch prices and initial capacity limits. Store plan definitions and entitlements in the database so the platform owner can change prices, limits, billing cycles and included features without redeploying the application.
+
+### Free plan
+- Basic property and unit registration.
+- Basic tenant and tenancy records.
+- Basic rent-expiry reminders.
+- Limited dashboard and reporting.
+- Basic property document storage.
+- Limited marketplace listing access.
+- One property and up to three units.
+
+### Basic plan – ₦2,000/month
+- Up to 10 units.
+- Full property and tenancy records.
+- Rent reminders and renewal tracking.
+- Standard tenant profiles and tenancy history.
+- Standard receipts and invoices.
+- Basic maintenance requests.
+- Limited artisan assignment.
+- Basic document templates.
+- Standard property listings and reports.
+
+### Professional plan – ₦7,500/month
+- Up to 50 units.
+- Advanced rent schedules and automated reminders.
+- Full tenant history and records.
+- Customizable receipt templates.
+- Advanced invoices and financial reports.
+- Full maintenance workflow.
+- Artisan assignment and progress tracking.
+- Private apartment-specific tenant communication.
+- Tenancy agreement and electronic signing workflows.
+- Advanced marketplace listings.
+- Professional KYC and verification workflows.
+- Advanced portfolio and occupancy reports.
+
+### Portfolio plan – ₦15,000/month
+- Up to 100 units.
+- Multiple property portfolios.
+- Advanced management and reporting.
+- Multiple authorized professional collaborators, subject to subscription entitlements.
+- Full maintenance and artisan management.
+- Advanced document and receipt customization.
+- Portfolio-level analytics.
+- Enhanced listing management and visibility.
+- Advanced access controls and audit history.
+- Priority support, subject to defined support capacity.
+
+### Enterprise and custom commercial agreements
+
+Do not permanently cap EstateDesk's enterprise offering at ₦15,000.
+
+Keep the four public subscription tiers, but allow the platform owner to create custom enterprise agreements for larger agencies, property companies and institutional portfolios.
+
+Custom enterprise packages may include:
+- More than 100 units.
+- Custom portfolio and organization limits.
+- Dedicated onboarding and migration.
+- Multiple branches and teams.
+- Advanced permission management.
+- API access and third-party integrations.
+- White-label branding.
+- Dedicated customer support and service-level agreements.
+- Custom reporting and data exports.
+- Negotiated commercial pricing.
+
+Enterprise pricing must be configurable by the platform administrator.
+
+## 10.3 Billing and subscription management
+
+Support:
+- Free subscriptions.
+- Weekly billing where enabled by the platform owner.
+- Monthly billing.
+- Quarterly billing.
+- Annual billing.
+- Promotional discounts and coupon codes.
+- Trial periods where authorized.
+- Automatic renewal where supported and consented to.
+- Manual renewal.
+- Subscription upgrades and downgrades.
+- Payment history and subscription invoices.
+- Expiry notifications.
+- Grace periods configurable by the platform administrator.
+
+Offer a proposed 20% discount for annual payments compared with twelve monthly payments, subject to commercial testing and administrator approval.
+
+Suggested annual prices at that discount:
+- Basic: ₦19,200/year.
+- Professional: ₦72,000/year.
+- Portfolio: ₦144,000/year.
+
+Do not hardcode these prices. Calculate them from the current plan configuration or allow the administrator to set a separate annual price.
+
+Each paid professional account must have its own subscription entitlement. A landlord, agent or facility manager must not automatically receive paid access simply because another professional invited them.
+
+Allow collaboration through explicit access grants and permission checks. Where several professionals work together, clearly identify which account owns the subscription and which account is responsible for any additional subscription.
+
+Tenants must be able to use essential tenancy features without purchasing a professional subscription. Optional tenant premium services may be introduced separately.
+
+Artisans/vendors must receive free access to jobs specifically assigned to them. They must not be required to purchase a property management subscription simply to receive, update or complete an assigned work order.
+
+### Subscription expiry
+
+When a subscription expires:
+- Preserve all property records.
+- Preserve ownership and management history.
+- Preserve tenant and tenancy history.
+- Preserve receipts, invoices and payment records.
+- Preserve signed agreements and documents.
+- Preserve maintenance records and audit logs.
+- Restrict premium features according to plan rules.
+- Notify the account owner about expiry and renewal.
+- Restore applicable premium entitlements when payment is confirmed.
+
+Never delete or hold essential historical property records hostage because a subscription has expired.
+
+## 10.4 Usage limits and operational costs
+
+Create configurable usage allowances for services that incur third-party or infrastructure costs.
+
+These may include:
+- SMS notifications.
+- WhatsApp notifications.
+- Email delivery.
+- Identity and KYC verification.
+- Document storage.
+- Image and video storage.
+- Electronic signature transactions.
+- Payment processing.
+- Marketplace promotions.
+- API usage.
+- Additional staff accounts.
+
+The system must display usage consumption and remaining allowances to the account owner.
+
+Allow the administrator to set:
+- Monthly usage quotas.
+- Overage charges.
+- Add-on packages.
+- Service restrictions.
+- Usage alerts.
+- Provider-specific charges.
+
+Do not advertise unlimited SMS, WhatsApp, KYC, document storage, payment processing or support unless the business has validated the financial sustainability of those services.
+
+Clearly disclose gateway fees, third-party service fees and any applicable marketplace commissions before users incur them.
+
+## 10.5 Property and portfolio management
+
+Implement a hierarchical property structure:
+
+Organization or owner → Property/building/estate → Individual unit/apartment.
+
+A property and its individual units must be separate database records.
+
+Support:
+- Residential properties.
+- Commercial properties.
+- Land and plots.
+- Mixed-use developments.
+- Multiple buildings.
+- Estates and compounds.
+- Individual apartments and rental units.
+- Vacant and occupied units.
+- Properties available for sale.
+- Properties available for rent.
+
+Allow property owners to register properties themselves or authorize agents to register and manage properties on their behalf.
+
+The landlord retains ownership of the underlying property records. Agents and facility managers receive delegated permissions, not ownership of the landlord's records.
+
+Maintain a complete audit trail of property registration, edits, management access, document changes and ownership updates.
+
+## 10.6 Delegated access and professional collaboration
+
+Allow agents and facility managers to manage multiple landlords and portfolios, subject to their subscription entitlements.
+
+Implement property-specific access grants with:
+- Grantor identity.
+- Authorized professional identity.
+- Property or unit scope.
+- Permission set.
+- Grant start date.
+- Scheduled revocation date.
+- Actual revocation date.
+- Status.
+- Reason for revocation.
+
+The landlord must be able to choose a custom date and time when an agent's access will end.
+
+When the scheduled date arrives, automatically revoke the relevant permissions while retaining all records and historical actions.
+
+Allow immediate revocation by the landlord for security emergencies.
+
+Never allow an agent to access another landlord's properties merely because both landlords use the same agent.
+
+## 10.7 Tenant and tenancy management
+
+Maintain separate tenant profiles and tenancy records.
+
+A tenancy must be a historical record rather than a field that is overwritten when a tenant leaves.
+
+Support:
+- Tenant onboarding by invitation link.
+- Invitation code.
+- Direct invitation.
+- Authorized manual registration.
+- Multiple tenants or occupants where appropriate.
+- Residential and commercial tenancy.
+- Lease commencement date.
+- Lease expiration date.
+- Renewal date.
+- Rent amount.
+- Rent frequency.
+- Payment schedule.
+- Security deposit.
+- Outstanding balance.
+- Renewal status.
+- Tenancy termination.
+- Move-in and move-out records.
+- Tenant history.
+
+A unit must support successive tenancy records without deleting previous tenants' histories.
+
+## 10.8 Rent reminders and renewal intelligence
+
+Build a reliable automated rent reminder engine.
+
+Allow users to configure reminders at intervals such as:
+- 90 days before expiry.
+- 60 days before expiry.
+- 30 days before expiry.
+- 14 days before expiry.
+- 7 days before expiry.
+- On the expiration date.
+- After expiration, where appropriate.
+
+Allow custom reminder intervals.
+
+Support in-app notifications, email, push notifications and optional SMS/WhatsApp integrations.
+
+Include:
+- Upcoming rent expirations.
+- Overdue rent.
+- Renewal pending.
+- Renewal confirmed.
+- Tenant vacating.
+- Lease ending.
+- Payment overdue.
+- Reminder delivery history.
+
+Use the property's local timezone for scheduling. Prevent duplicate reminders and maintain delivery logs.
+
+## 10.9 Payment verification, receipts and invoices
+
+Support both in-app payments and externally recorded payments.
+
+Payment verification must combine:
+- Payment gateway confirmation.
+- Verified bank transfer reconciliation.
+- Authorized manual confirmation.
+- Cash and other payment records with appropriate authorization.
+
+A payment screenshot alone must never automatically establish that rent has been paid.
+
+Implement:
+- Unique transaction references.
+- Duplicate payment detection.
+- Idempotent payment processing.
+- Gateway webhook verification.
+- Payment evidence storage.
+- Payment allocation to rent schedules or invoices.
+- Authorized payment verification.
+- Reconciliation history.
+- Refund and reversal records.
+- Payment audit logs.
+
+Generate a confirmed receipt only after payment has been verified.
+
+Unverified or pending payments must be clearly labelled and must not appear as confirmed income.
+
+Allow customized receipts with:
+- Landlord or agency logo.
+- Business name and contact information.
+- Receipt number.
+- Tenant details.
+- Property and unit details.
+- Amount and currency.
+- Payment date.
+- Payment method.
+- Payment reference.
+- Rent period.
+- Authorized signature or approval.
+
+Support customizable invoices, downloadable documents and printable receipts.
+
+## 10.10 Multiple currencies and international expansion
+
+Support multiple currencies using ISO 4217 currency codes.
+
+Initial currencies may include:
+- NGN.
+- USD.
+- GBP.
+- EUR.
+
+Allow the platform administrator to add additional supported currencies.
+
+Store monetary values in integer minor units where applicable, alongside the currency code.
+
+Never silently convert one currency into another.
+
+Where conversion is required, preserve:
+- Original amount.
+- Original currency.
+- Converted amount.
+- Exchange rate.
+- Exchange-rate source.
+- Conversion timestamp.
+
+Do not combine different currencies into a single financial total without an explicitly disclosed conversion methodology.
+
+## 10.11 Apartment-specific communication
+
+Create a private communication group for each individual apartment or unit.
+
+Only authorized participants may access that unit's group:
+- Active tenants or authorized occupants.
+- Landlord.
+- Authorized agent.
+- Authorized facility manager.
+
+A tenant must not be able to view the communication group of another apartment.
+
+When a tenancy ends, remove the former tenant's access to the apartment's current group while retaining records according to the platform's retention policy.
+
+Support:
+- Text messages.
+- Images.
+- Documents.
+- Maintenance-related conversations.
+- Administrative announcements.
+- Message timestamps.
+- Read status where appropriate.
+- Moderation and reporting controls.
+
+Enforce all access permissions on the backend, not only in the user interface.
+
+## 10.12 Maintenance, renovation and artisan management
+
+Allow tenants, landlords, agents and facility managers with appropriate permissions to submit maintenance requests.
+
+Tenants must be able to upload photographs and describe issues affecting their apartment.
+
+Implement the following workflow:
+
+1. Maintenance issue submitted.
+2. Relevant manager notified.
+3. Request reviewed and categorized.
+4. Approval or rejection recorded.
+5. Work order created.
+6. Artisan/vendor assigned.
+7. Artisan receives a restricted job notification.
+8. Artisan submits quotation where required.
+9. Manager or landlord approves quotation.
+10. Artisan updates work progress.
+11. Before-and-after photographs uploaded where applicable.
+12. Work reviewed and approved.
+13. Job closed.
+14. Tenant and relevant stakeholders notified.
+
+Support:
+- Emergency repairs.
+- Routine maintenance.
+- Renovation projects.
+- Preventive maintenance.
+- Repair quotations.
+- Work schedules.
+- Expenses.
+- Materials.
+- Job status.
+- Completion evidence.
+- Customer feedback.
+
+### Artisan access restrictions
+
+Artisans must only access work orders specifically assigned to them.
+
+They must not browse:
+- Unrelated properties.
+- Other tenants.
+- Rent records.
+- Landlord financial records.
+- Private apartment chats.
+- Other artisans' assignments.
+- The landlord's wider portfolio.
+
+Provide artisans with a dedicated dashboard for assigned jobs, quotations, job updates, completed work and their profiles.
+
+## 10.13 Marketplace and property listings
+
+Create a public marketplace for property listings.
+
+Support:
+- Properties for rent.
+- Properties for sale.
+- Residential properties.
+- Commercial properties.
+- Land and plots.
+- Property photographs and videos.
+- Property descriptions.
+- Location and amenities.
+- Price and currency.
+- Availability status.
+- Inspection/viewing appointments.
+- Enquiries and leads.
+- Listing promotions.
+
+Only owners or authorized agents may publish listings.
+
+Keep public listing information separate from private property management records.
+
+Implement listing moderation and status tracking:
+- Draft.
+- Submitted.
+- Under review.
+- Approved.
+- Published.
+- Reserved.
+- Rented.
+- Sold.
+- Rejected.
+- Archived.
+
+Protect tenant information, ownership documents and sensitive property records from public exposure.
+
+Provide reporting and complaint mechanisms for suspicious listings.
+
+Do not describe a listing as verified or guaranteed unless the platform has completed the specific verification required for that claim.
+
+## 10.14 KYC and professional verification
+
+Implement automated verification followed by manual administrative approval.
+
+Maintain separate verification statuses for:
+- Identity verification.
+- Property ownership verification.
+- Professional qualification verification.
+- Business registration verification.
+- Artisan/vendor verification.
+
+### Agents
+
+Allow relevant identity and professional evidence, including:
+- Facial verification and liveness checks.
+- Estate Management academic qualifications.
+- Relevant professional certificates.
+- ESV, NIESV and ESVABON credentials where applicable.
+- NIN or other supported identity verification.
+- TIN.
+- CAC documentation.
+- Other approved business or professional evidence.
+
+Alternative identity or business documents must not automatically establish Estate Management professional qualification.
+
+### Landlords
+
+Support:
+- Identity verification.
+- Facial verification where supported.
+- Ownership evidence.
+- Authorized owner confirmation.
+- Property-specific verification.
+
+### Facility managers and artisans
+
+Support identity verification, professional certificates, business credentials and relevant work experience or documentation.
+
+Show verification status accurately. Do not treat identity verification as proof of property ownership or professional certification.
+
+## 10.15 Legal documents and electronic signatures
+
+Support residential and commercial tenancy templates.
+
+Provide configurable document templates for authorized landlords and agents.
+
+Support electronic signing through:
+- Typed signatures.
+- Drawn signatures.
+- Verified electronic signing workflows.
+
+Maintain:
+- Document versions.
+- Signatory identity.
+- Consent records.
+- Signing timestamps.
+- Authentication method.
+- Document integrity information.
+- Signature event history.
+- Downloadable signed copies.
+
+Restrict access to legal documents according to tenancy and property permissions.
+
+All tenancy templates, electronic signing workflows and relevant legal processes must be reviewed by qualified Nigerian legal professionals before commercial deployment.
+
+Do not represent the application as providing legal advice.
+
+## 10.16 Inventory, inspections and handover
+
+Implement property inventory and inspection management.
+
+Support:
+- Initial property inventory.
+- Move-in inspections.
+- Move-out inspections.
+- Room-by-room condition records.
+- Furniture and equipment records.
+- Photographs.
+- Video evidence.
+- Damaged-item records.
+- Renovation records.
+- Handover checklists.
+- Tenant and manager acknowledgements.
+- Downloadable inspection reports.
+
+Maintain a dated history of changes to inventory and property condition.
+
+## 10.17 Profiles and privacy
+
+Allow users to maintain customizable profiles.
+
+Support:
+- Profile photographs.
+- Business or agency details.
+- Professional qualifications.
+- Contact details.
+- Portfolio information.
+- Verification badges.
+- Profile visibility settings.
+
+Allow users to control which profile information is public, private or visible only to authorized contacts.
+
+Never expose sensitive KYC documents or private tenancy information through public profile pages.
+
+## 10.18 Financial and operational reporting
+
+Create dashboards and reports for:
+- Total properties.
+- Total units.
+- Occupied and vacant units.
+- Upcoming rent expirations.
+- Overdue rent.
+- Collected rent.
+- Outstanding rent.
+- Payment verification status.
+- Maintenance expenses.
+- Open and completed work orders.
+- Property occupancy.
+- Tenancy renewals.
+- Marketplace listings and enquiries.
+- Subscription revenue.
+- Subscription renewals and cancellations.
+
+Allow exports where permitted.
+
+Provide date filters, property filters, portfolio filters and currency-aware financial reporting.
+
+## 10.19 Super administrator portal
+
+Create a separate secure web administration portal for the platform owner.
+
+Include:
+- User management.
+- Property oversight.
+- KYC review.
+- Subscription and pricing management.
+- Payment and transaction oversight.
+- Marketplace moderation.
+- Reports and analytics.
+- Feature controls.
+- Usage limits.
+- Customer support tools.
+- Audit logs.
+- System configuration.
+
+Require strong authentication, multi-factor authentication, least-privilege access and auditable administrative actions.
+
+Never hardcode administrator passwords into source code, database seeds, client applications or public configuration.
+
+Provision the initial administrator through a secure invitation or controlled account setup process.
+
+Store secrets in secure environment variables or a secrets manager. Never expose service-role keys or privileged credentials to mobile or browser clients.
+
+## 10.20 Pricing administration and commercial analytics
+
+Give the platform administrator the ability to manage:
+- Subscription plan names.
+- Monthly and annual prices.
+- Weekly or quarterly billing options where enabled.
+- Unit and property limits.
+- Staff and professional account limits.
+- Feature entitlements.
+- Free usage allowances.
+- Add-on services.
+- Overage charges.
+- Promotional offers.
+- Discount codes.
+- Enterprise quotations.
+- Subscription grace periods.
+
+Maintain historical pricing versions so existing subscriptions and past invoices remain auditable.
+
+Create internal commercial analytics to track:
+- Free-to-paid conversion.
+- Monthly recurring revenue.
+- Annual recurring revenue.
+- Revenue by plan.
+- Churn.
+- Renewal rates.
+- Average revenue per professional account.
+- Cost per active unit.
+- Notification costs.
+- KYC costs.
+- Payment processing costs.
+- Storage and infrastructure costs.
+- Support costs.
+- Gross margin by subscription tier.
+
+Do not change customer pricing retrospectively without the required notice, consent and applicable commercial/legal controls.
+
+## 10.21 Customer and market validation
+
+Before treating proposed prices or capacity limits as final, conduct structured validation with Nigerian:
+- Individual landlords.
+- Independent real estate agents.
+- Facility managers.
+- Property management agencies.
+- Commercial property operators.
+
+Collect information about:
+- Number of properties and units managed.
+- Existing software or manual processes.
+- Current monthly operating costs.
+- Existing subscription spending.
+- Most valuable product features.
+- Willingness to pay.
+- Preferred billing frequency.
+- Required team access.
+- Pain points in rent collection, renewals and maintenance.
+
+Use actual customer feedback and observed usage to refine packaging and pricing.
+
+Do not invent market sizes, customer demand, competitor functionality or financial projections.
+
+## 10.22 Product differentiation priorities
+
+EstateDesk must compete through operational reliability and connected workflows rather than price alone.
+
+Prioritize:
+1. Reliable rent expiry and renewal reminders.
+2. Strong landlord ownership and delegated agent access.
+3. Historical tenant and tenancy records.
+4. Private apartment-specific tenant communication.
+5. Photo-based maintenance requests.
+6. Controlled artisan assignment and work tracking.
+7. Verified payment records and customizable receipts.
+8. Tenancy agreements and electronic signatures.
+9. Property inventory and inspection reports.
+10. Professional KYC and ownership verification.
+11. Property rental and sales marketplace.
+12. Multi-currency and international readiness.
+
+Make these workflows work together without compromising data privacy or permissions.
+
+## 10.23 Security, privacy and reliability requirements
+
+Enforce:
+- Role-based access control.
+- Property-level and unit-level permissions.
+- Database row-level security.
+- Secure file storage.
+- Signed document and media URLs.
+- Strong authentication.
+- Multi-factor authentication for privileged roles.
+- Encrypted data transmission.
+- Secure secrets management.
+- Audit trails.
+- Backup and recovery procedures.
+- Rate limiting.
+- Abuse prevention.
+- Secure webhook validation.
+- Data retention policies.
+- User consent management.
+- Privacy-compliant data export and deletion workflows.
+
+Do not rely on frontend restrictions as the sole security control.
+
+## 10.24 Development and implementation priorities
+
+Build the product in practical stages:
+
+**Phase 1 – Core foundation**
+- Authentication and profiles.
+- Roles and permissions.
+- Property and unit management.
+- Landlord ownership records.
+- Delegated agent access.
+- Tenants and tenancy records.
+- Rent schedules and expiry reminders.
+
+**Phase 2 – Property operations**
+- Tenant onboarding.
+- Apartment-specific communication.
+- Maintenance requests.
+- Work orders.
+- Artisan accounts and assignments.
+- Inventory and inspections.
+
+**Phase 3 – Financial operations**
+- Payment gateway integrations.
+- External payment recording.
+- Payment verification and reconciliation.
+- Receipts and invoices.
+- Subscription plans and billing.
+- Financial dashboards.
+
+**Phase 4 – Legal and verification**
+- Tenancy templates.
+- Electronic signing.
+- KYC workflows.
+- Professional qualification verification.
+- Ownership verification.
+
+**Phase 5 – Marketplace**
+- Property listings.
+- Listing moderation.
+- Enquiries and leads.
+- Inspection bookings.
+- Artisan/vendor marketplace features.
+
+**Phase 6 – Enterprise and international expansion**
+- Multi-currency operations.
+- Custom enterprise subscriptions.
+- Advanced analytics.
+- API integrations.
+- White-label features.
+- Multi-organization management.
+
+## 10.25 Final development instruction
+
+Do not build EstateDesk as a basic rent reminder application.
+
+Build it as a complete, secure and commercially sustainable real estate operations ecosystem.
+
+Prioritize data integrity, ease of use, mobile performance, tenant privacy, property ownership rights, accurate payment verification, dependable reminders and scalable portfolio management.
+
+All subscription prices, plan limits, feature entitlements, notification allowances and enterprise commercial terms must be configurable from the administration portal.
+
+Use the proposed Free, ₦2,000 Basic, ₦7,500 Professional and ₦15,000 Portfolio structure as the initial commercial configuration, subject to validation.
+
+Deliver a production-quality application with a consistent user experience across iOS, Android and web, backed by a secure and maintainable architecture.
+
+Do not omit any requirement above. Where a third-party integration, legal requirement, pricing assumption or technical capability needs validation, identify it clearly rather than pretending it has already been implemented or verified.
